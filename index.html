@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flipping Cards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="flashcards-app">
+    <input v-model="form.question" type="text" placeholder="Put question here"/>
+    <input v-model="form.answer" type="text" placeholder="Put answer here"/>
+    <br>
+    <input type="radio" id="history" name="category" value="history" v-model="form.category">
+    <label for="history">History</label>
+
+    <input type="radio" id="science" name="category" value="science" v-model="form.category">
+    <label for="science">Science</label>
+
+    <input type="radio" id="math" name="category" value="math" v-model="form.category">
+    <label for="math">Math</label>
+    <br>
+    <span>Picked: {{ form.category }}</span>
+    <br>
+    <button v-on:click="submit">Submit</button>
+
+    <div class="cards">
+        <div class="card" v-for="(card, index) in cards">
+            <div class="top" v-bind:class="card.category"></div>
+            <div class="side1" v-on:click="flip(index)" v-bind:class="{ hide: cards[index].flipped }">
+                <h1>
+                    {{ card.question }}
+                </h1>
+            </div>
+            <!--     In your template, remove the 'hide' class from the side1 and side2 elements. 'hide' class should be conditionally rendered through the 'flipped' value in the card -->
+            <div class="side2" v-on:click="flipper(index)" v-bind:class="{ hide: !cards[index].flipped }">
+                <h1>
+                    {{ card.answer }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<div id="app">-->
+<!--    {{ title }}-->
+<!--    <div v-for="tweet in tweets">-->
+<!--        <h1> {{ tweet.name }}</h1>-->
+<!--        <p v-if="tweet.cool">-->
+<!--            This person is cool-->
+<!--        </p>-->
+<!--        <p v-else>-->
+<!--            This person sucks-->
+<!--        </p>-->
+<!--        &lt;!&ndash;    likeUp is the function in app.js under methods  &ndash;&gt;-->
+<!--        &lt;!&ndash;    the number in parentheses is nm in function  &ndash;&gt;-->
+<!--        <button v-on:click="likeUp(1)">-->
+<!--            click me-->
+<!--        </button>-->
+<!--        <button v-on:click="likeUp(3)">-->
+<!--            click me 2-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <h3>-->
+<!--        {{ likes }}-->
+<!--    </h3>-->
+<!--    <input v-model="form.name" type="text" placeholder="name"/>-->
+<!--    <input v-model="form.color" type="text" placeholder="color"/>-->
+<!--    <button v-on:click="submit">Submit</button>-->
+<!--</div>-->
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
